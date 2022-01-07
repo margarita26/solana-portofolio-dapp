@@ -1,22 +1,15 @@
-import React from "react";
 import styled from "@emotion/styled";
-import Wallet from "./solana/Wallet";
-import {
-  WalletModalProvider,
-  WalletDisconnectButton,
-  WalletMultiButton,
-} from "@solana/wallet-adapter-react-ui";
 import { AppBar, Container } from "@mui/material";
+import {
+  WalletDisconnectButton, WalletModalProvider, WalletMultiButton
+} from "@solana/wallet-adapter-react-ui";
+import React from "react";
+import LandingPage from "./components/landingPage/LandingPage";
 import colors from "./constants/colors";
 import {
-  UserSettingsProvider,
-  UserSettingsContext,
+  UserSettingsProvider
 } from "./contexts/UserSettings";
-import AnimatedText from "./components/shared/AnimatedText";
-import { css } from "@emotion/react";
-import { useContext, useEffect } from "react";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import * as solanaWeb3 from "@solana/web3.js";
+import Wallet from "./solana/Wallet";
 
 const StyledContainer = styled.div`
   width: 100vw;
@@ -34,38 +27,6 @@ const StyledButtonContainer = styled.div`
 `;
 
 function App() {
-  const { userWalletaddress } = useContext(UserSettingsContext);
-
-  const { connection } = useConnection();
-  const { publicKey, sendTransaction, wallet } = useWallet();
-
-  console.log(useWallet());
-  useEffect(() => {
-    const lamports = async () => {
-
-      await connection.getBalance(publicKey).catch((err) => {
-        console.error(`Error: ${err}`);
-      });
-    };
-
-    lamports();
-  });
-
-  const WelcomeText = () => (
-    <div>
-      <div>
-        <AnimatedText color="white" size="36px">
-          {"welcome to solana based public chat"}
-        </AnimatedText>
-      </div>
-      <div>
-        <AnimatedText color="white" size="36px">
-          {"pelase connect wallet to continue"}
-        </AnimatedText>
-      </div>
-    </div>
-  );
-
   const WalletComponent = () => (
     <WalletModalProvider>
       <StyledButtonContainer>
@@ -108,7 +69,7 @@ function App() {
               </div>
             </Container>
           </AppBar>
-          {userWalletaddress ? "Connected" : <WelcomeText />}
+          <LandingPage/>
         </StyledContainer>
       </Wallet>
     </UserSettingsProvider>

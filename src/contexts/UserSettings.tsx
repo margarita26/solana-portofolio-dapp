@@ -2,23 +2,23 @@ import * as React from "react";
 import { createContext, useState } from "react";
 
 export type UserSettingsContextProps = {
-  userWalletaddress: string;
-  setUserWalletAddress: (walletAddress: string) => void;
+  userPublicKey: any;
+  setUserPublicKey: (publicKey: any) => void;
 };
 
 export const UserSettingsContext = createContext<UserSettingsContextProps>({
-  userWalletaddress: "",
-  setUserWalletAddress: () => null,
+  userPublicKey: null,
+  setUserPublicKey: () => null,
 });
 
 export const UserSettingsProvider: React.FC = ({ children }) => {
-  const [userWalletaddress, setUserWalletAddress] = useState<string>("");
+  const [userWalletaddress, setUserWalletAddress] = useState<any>(null);
 
   return (
     <UserSettingsContext.Provider
       value={{
-        userWalletaddress,
-        setUserWalletAddress,
+        userPublicKey: userWalletaddress,
+        setUserPublicKey: setUserWalletAddress,
       }}
     >
       {children}
