@@ -1,6 +1,6 @@
-import React from "react";
+import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { css, keyframes, SerializedStyles } from "@emotion/react";
+import React from "react";
 
 interface TextProps {
   children: React.ReactNode;
@@ -21,17 +21,17 @@ const fadeIn = keyframes`
   }
 `;
 
-const fadeOut = keyframes`
-  from {
-    transform: scale(1);
-    opacity: 0;
-  }
+// const fadeOut = keyframes`
+//   from {
+//     transform: scale(1);
+//     opacity: 0;
+//   }
 
-  to {
-    transform: scale(.25);
-    opacity: 1;
-  }
-`;
+//   to {
+//     transform: scale(.25);
+//     opacity: 1;
+//   }
+// `;
 
 interface StyledAnimatedTextProps {
   size: string;

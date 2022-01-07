@@ -1,4 +1,4 @@
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { useContext, useEffect } from "react";
 import { UserSettingsContext } from "../../contexts/UserSettings";
 import Text from "../shared/AnimatedText";
@@ -6,8 +6,8 @@ import Text from "../shared/AnimatedText";
 const LandingPage = () => {
   const { userPublicKey, setUserPublicKey } = useContext(UserSettingsContext);
 
-  const { connection } = useConnection();
-  const { publicKey, sendTransaction, wallet } = useWallet();
+//   const { connection } = useConnection();
+  const { publicKey } = useWallet();
 
   useEffect(() => {
     setUserPublicKey(publicKey);
