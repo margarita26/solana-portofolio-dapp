@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: linear-gradient(0.20turn, blue, white)
 }
 
 .App-logo {
@@ -21,11 +22,11 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: linear-gradient(0.20turn, blue, white)
 }
 
 .App-link {
-  color: #61dafb;
+  color: blue;
 }
 
 @keyframes App-logo-spin {
