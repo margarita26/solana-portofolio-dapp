@@ -1,0 +1,49 @@
+import React from "react";
+import styled from "@emotion/styled";
+import { keyframes, SerializedStyles } from "@emotion/react";
+
+interface AnimatedTextProps {
+  children: React.ReactNode;
+  size: string;
+  color: string;
+}
+
+const fadeIn = keyframes`
+  from {
+    transform: scale(.25);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    transform: scale(1);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(.25);
+    opacity: 1;
+  }
+`;
+
+interface StyledAnimatedTextProps {
+  size: string;
+  color: string;
+}
+const StyledAnimatedText = styled.span<StyledAnimatedTextProps>`
+  font-size: ${(props: StyledAnimatedTextProps) => props.size};
+  color: ${(props: StyledAnimatedTextProps) => props.color};
+  animation: ${fadeIn} 2s linear;
+`;
+
+const AnimatedText = ({ children, ...props }: AnimatedTextProps) => {
+  return <StyledAnimatedText {...props}>{children}</StyledAnimatedText>;
+};
+
+export default AnimatedText;
