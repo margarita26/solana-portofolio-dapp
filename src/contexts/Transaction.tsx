@@ -5,10 +5,9 @@ import {
   SignatureResult,
   SystemProgram,
   Transaction,
-  TransactionInstruction,
+  TransactionInstruction
 } from "@solana/web3.js";
-import React, { useCallback, useMemo } from "react";
-import { createContext, useContext } from "react";
+import React, { createContext, useCallback, useContext } from "react";
 import { UserSettingsContext } from "./UserSettings";
 
 /**

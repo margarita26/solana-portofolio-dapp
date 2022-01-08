@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Button, List, Paper, TextField } from "@mui/material";
+import { Button, Paper, TextField } from "@mui/material";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useContext, useEffect, useState } from "react";
 import { TransactionContext } from "../../../contexts/Transaction";
