@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import { Button, List, Paper, TextField } from "@mui/material";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useContext, useEffect, useState } from "react";
-import { TransactionContext } from "../../contexts/Transaction";
-import { UserSettingsContext } from "../../contexts/UserSettings";
-import CustomText from "../shared/CustomText";
+import { TransactionContext } from "../../../contexts/Transaction";
+import { UserSettingsContext } from "../../../contexts/UserSettings";
+import CustomText from "../../shared/CustomText";
 
 const StyledChatContainer = styled.div`
   display: flex;

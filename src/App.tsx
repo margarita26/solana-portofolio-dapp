@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import CustomAppBar from "./components/header/CustomAppBar";
-import LandingPage from "./components/landingPage/LandingPage";
+import LandingPage from "./components/pages/landingPage/LandingPage";
 import colors from "./constants/colors";
 import { TransactionProvider } from "./contexts/Transaction";
 import { UserSettingsProvider } from "./contexts/UserSettings";
