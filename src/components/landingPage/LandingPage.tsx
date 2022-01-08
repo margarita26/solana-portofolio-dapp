@@ -45,8 +45,7 @@ const LandingPage = () => {
 
   useEffect(() => {
     const asyncGetTransactions = async () => {
-      await getTransactionsMemos()
-      .then((messages) => {
+      await getTransactionsMemos().then((messages) => {
         console.log(messages);
         setChatMessages(messages);
       });
@@ -67,6 +66,26 @@ const LandingPage = () => {
         </CustomText>
       </div>
     </div>
+  );
+
+  const Chat = () => (
+    <Paper
+      style={{
+        padding: "8px",
+        background: "rgba(255,255,255,.5)",
+        height: "400px",
+        overflow: "auto",
+        width: "100%",
+      }}
+    >
+      {chatMessages.map((message, index) => (
+        <div key={index}>
+          <CustomText key={index} size="18px" color="white">
+            {message}
+          </CustomText>
+        </div>
+      ))}
+    </Paper>
   );
 
   const handleOnSend = async () => {
@@ -90,23 +109,7 @@ const LandingPage = () => {
             </StyledWalletAddressText>
           </StyledInnerChatContainer>
           <StyledInnerChatContainer>
-            <Paper
-              style={{
-                padding: "8px",
-                background: "rgba(255,255,255,.5)",
-                height: "400px",
-                overflow: "auto",
-                width: "100%",
-              }}
-            >
-              {chatMessages.map((message, index) => (
-                <div key={index}>
-                  <CustomText key={index} size="18px" color="white">
-                    {message}
-                  </CustomText>
-                </div>
-              ))}
-            </Paper>
+            <Chat />
           </StyledInnerChatContainer>
           <StyledInnerChatContainer flexDirection="row">
             <TextField
@@ -122,6 +125,7 @@ const LandingPage = () => {
               variant="standard"
               value={message}
               onChange={(e: any) => setMessage(e.target.value)}
+              autoComplete="off"
             />
             <Button variant="outlined" onClick={() => handleOnSend()}>
               Send

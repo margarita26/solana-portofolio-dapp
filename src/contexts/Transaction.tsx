@@ -22,7 +22,7 @@ export type TransactionContextProps = {
   sendMessageTransaction: (
     message: string
   ) => Promise<RpcResponseAndContext<SignatureResult> | null>;
-  getTransactionsMemos: () =>  Promise<(string | null)[]>;
+  getTransactionsMemos: () => Promise<(string | null)[]>;
 };
 
 export const TransactionContext = createContext<TransactionContextProps>(
@@ -34,33 +34,41 @@ export const TransactionProvider: React.FC = ({ children }) => {
   const { sendTransaction } = useWallet();
   const { connection } = useConnection();
 
-  const sendMessageTransaction = async (message: string) => {
-    const transferTransaction = new Transaction().add(
-      SystemProgram.transfer({
-        fromPubkey: userPublicKey,
-        toPubkey: APP_WALLET_PUBLIC_KEY,
-        lamports: 10,
-      })
-    );
+  const sendMessageTransaction = useCallback(
+    async (message: string) => {
+      const transferTransaction = new Transaction().add(
+        SystemProgram.transfer({
+          fromPubkey: userPublicKey,
+          toPubkey: APP_WALLET_PUBLIC_KEY,
+          lamports: 10,
+        })
+      );
 
-    await transferTransaction.add(
-      new TransactionInstruction({
-        keys: [{ pubkey: userPublicKey, isSigner: true, isWritable: true }],
-        data: Buffer.from(message, "utf-8"),
-        programId: new PublicKey("MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"),
-      })
-    );
+      await transferTransaction.add(
+        new TransactionInstruction({
+          keys: [{ pubkey: userPublicKey, isSigner: true, isWritable: true }],
+          data: Buffer.from(message, "utf-8"),
+          programId: new PublicKey(
+            "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+          ),
+        })
+      );
 
-    try {
-      console.log("trying to send a message");
-      const signature = await sendTransaction(transferTransaction, connection);
-      console.log("signed");
-      return await connection.confirmTransaction(signature, "processed");
-    } catch (e) {
-      console.log(e);
-      return null;
-    }
-  };
+      try {
+        console.log("trying to send a message");
+        const signature = await sendTransaction(
+          transferTransaction,
+          connection
+        );
+        console.log("signed");
+        return await connection.confirmTransaction(signature, "processed");
+      } catch (e) {
+        console.log(e);
+        return null;
+      }
+    },
+    [connection, sendTransaction, userPublicKey]
+  );
 
   const getTransactionsMemos = useCallback(async () => {
     const transactions = await connection.getConfirmedSignaturesForAddress2(
