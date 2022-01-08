@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Button, Paper, TextField } from "@mui/material";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useContext, useEffect, useState } from "react";
-import { TransactionContext } from "../../../contexts/Transaction";
+import { TransactionsContext } from "../../../contexts/Transactions";
 import { UserSettingsContext } from "../../../contexts/UserSettings";
 import CustomText from "../../shared/CustomText";
 
@@ -36,7 +36,7 @@ const LandingPage = () => {
   const [chatMessages, setChatMessages] = useState<(string | null)[]>([]);
   const { userPublicKey, setUserPublicKey } = useContext(UserSettingsContext);
   const { sendMessageTransaction, getTransactionsMemos } =
-    useContext(TransactionContext);
+    useContext(TransactionsContext);
   const { publicKey } = useWallet();
 
   useEffect(() => {
@@ -46,7 +46,6 @@ const LandingPage = () => {
   useEffect(() => {
     const asyncGetTransactions = async () => {
       await getTransactionsMemos().then((messages) => {
-        console.log(messages);
         setChatMessages(messages);
       });
     };
@@ -72,7 +71,7 @@ const LandingPage = () => {
     <Paper
       style={{
         padding: "8px",
-        background: "rgba(255,255,255,.5)",
+        background: "rgba(255,255,255,.3)",
         height: "400px",
         overflow: "auto",
         width: "100%",
@@ -113,13 +112,16 @@ const LandingPage = () => {
           </StyledInnerChatContainer>
           <StyledInnerChatContainer flexDirection="row">
             <TextField
-              inputProps={{ style: { color: "white" } }}
+              inputProps={{
+                style: {
+                  color: "white",
+                },
+              }}
               sx={{
                 width: "60%",
                 color: "white",
                 marginRight: "32px",
               }}
-              id="standard-basic"
               color="primary"
               label="Message"
               variant="standard"

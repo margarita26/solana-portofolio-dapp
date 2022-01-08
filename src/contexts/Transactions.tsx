@@ -5,7 +5,7 @@ import {
   SignatureResult,
   SystemProgram,
   Transaction,
-  TransactionInstruction
+  TransactionInstruction,
 } from "@solana/web3.js";
 import React, { createContext, useCallback, useContext } from "react";
 import { UserSettingsContext } from "./UserSettings";
@@ -17,18 +17,18 @@ const APP_WALLET_PUBLIC_KEY = new PublicKey(
   "AsvD2XFxEf7nNa6T6GB5oq1HgW3sPgKTdVB4L7r9eryR"
 );
 
-export type TransactionContextProps = {
+export type TransactionsContextProps = {
   sendMessageTransaction: (
     message: string
   ) => Promise<RpcResponseAndContext<SignatureResult> | null>;
   getTransactionsMemos: () => Promise<(string | null)[]>;
 };
 
-export const TransactionContext = createContext<TransactionContextProps>(
-  {} as TransactionContextProps
+export const TransactionsContext = createContext<TransactionsContextProps>(
+  {} as TransactionsContextProps
 );
 
-export const TransactionProvider: React.FC = ({ children }) => {
+export const TransactionsProvider: React.FC = ({ children }) => {
   const { userPublicKey } = useContext(UserSettingsContext);
   const { sendTransaction } = useWallet();
   const { connection } = useConnection();
@@ -62,7 +62,6 @@ export const TransactionProvider: React.FC = ({ children }) => {
         console.log("signed");
         return await connection.confirmTransaction(signature, "processed");
       } catch (e) {
-        console.log(e);
         return null;
       }
     },
@@ -78,15 +77,15 @@ export const TransactionProvider: React.FC = ({ children }) => {
   }, [connection]);
 
   return (
-    <TransactionContext.Provider
+    <TransactionsContext.Provider
       value={{
         sendMessageTransaction,
         getTransactionsMemos,
       }}
     >
       {children}
-    </TransactionContext.Provider>
+    </TransactionsContext.Provider>
   );
 };
 
-export default TransactionProvider;
+export default TransactionsProvider;
