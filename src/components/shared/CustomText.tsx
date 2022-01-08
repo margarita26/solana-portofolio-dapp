@@ -2,7 +2,7 @@ import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import React from "react";
 
-interface TextProps {
+interface CustomTextProps {
   children: React.ReactNode;
   size: string;
   color: string;
@@ -21,18 +21,6 @@ const fadeIn = keyframes`
   }
 `;
 
-// const fadeOut = keyframes`
-//   from {
-//     transform: scale(1);
-//     opacity: 0;
-//   }
-
-//   to {
-//     transform: scale(.25);
-//     opacity: 1;
-//   }
-// `;
-
 interface StyledAnimatedTextProps {
   size: string;
   color: string;
@@ -44,8 +32,8 @@ const StyledAnimatedText = styled.span<StyledAnimatedTextProps>`
   animation: ${(props: StyledAnimatedTextProps) => props.animated? css`${fadeIn} 2s linear` : null};
 `;
 
-const Text = ({ children, ...props }: TextProps) => {
+const CustomText = ({ children, ...props }: CustomTextProps) => {
   return <StyledAnimatedText {...props}>{children}</StyledAnimatedText>;
 };
 
-export default Text;
+export default CustomText;

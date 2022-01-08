@@ -3,6 +3,7 @@ import React from "react";
 import CustomAppBar from "./components/header/CustomAppBar";
 import LandingPage from "./components/landingPage/LandingPage";
 import colors from "./constants/colors";
+import { TransactionProvider } from "./contexts/Transaction";
 import { UserSettingsProvider } from "./contexts/UserSettings";
 import Wallet from "./solana/Wallet";
 
@@ -21,10 +22,12 @@ function App() {
   return (
     <UserSettingsProvider>
       <Wallet>
-        <StyledContainer>
-          <CustomAppBar />
-          <LandingPage />
-        </StyledContainer>
+        <TransactionProvider>
+          <StyledContainer>
+            <CustomAppBar />
+            <LandingPage />
+          </StyledContainer>
+        </TransactionProvider>
       </Wallet>
     </UserSettingsProvider>
   );
