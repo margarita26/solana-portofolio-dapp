@@ -84,7 +84,7 @@ const LandingPage = () => {
     >
       {chatMessages.map((message, index) => (
         <div key={index} style={{ display: "flex", flexDirection: "row" }}>
-          <div style={{ marginRight: "8px", width: "58px" }}>
+          <div style={{ marginRight: "8px", width: "65px" }}>
             <CustomText size="18px" color={colors.primary}>
               {`${getDate(message.blockTime)}:`}
             </CustomText>
