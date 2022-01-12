@@ -6,8 +6,8 @@ import { useContext, useEffect, useState } from "react";
 import colors from "../../../constants/colors";
 import { TransactionsContext } from "../../../contexts/Transactions";
 import { UserSettingsContext } from "../../../contexts/UserSettings";
-import CustomText from "../../shared/CustomText";
 import { getDate } from "../../../utils/dateUtils";
+import CustomText from "../../shared/CustomText";
 
 const StyledChatContainer = styled.div`
   display: flex;
@@ -28,10 +28,13 @@ const StyledInnerChatContainer = styled.div<StyledInnerChatContainerProps>`
   align-items: center;
 `;
 
-const StyledWalletAddressText = styled.div`
+const StyledTextWithBorder = styled.div`
   border: 1px solid white;
   border-radius: 10px;
   padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const LandingPage = () => {
@@ -60,14 +63,23 @@ const LandingPage = () => {
   const WelcomeText = () => (
     <div>
       <div>
-        <CustomText color="white" size="36px" animated>
-          {"welcome to solana based public chat"}
-        </CustomText>
+        <StyledTextWithBorder>
+          <CustomText color="white" size="20px">
+            {"connect to devnet"}
+          </CustomText>
+        </StyledTextWithBorder>
       </div>
-      <div>
-        <CustomText color="white" size="36px" animated>
-          {"pelase connect wallet to continue"}
-        </CustomText>
+      <div style={{ marginTop: "32px" }}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <CustomText color="white" size="36px" animated>
+            {"welcome to solana based public chat"}
+          </CustomText>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <CustomText color="white" size="36px" animated>
+            {"pelase connect wallet to continue"}
+          </CustomText>
+        </div>
       </div>
     </div>
   );
@@ -115,11 +127,11 @@ const LandingPage = () => {
       {userPublicKey ? (
         <StyledChatContainer>
           <StyledInnerChatContainer>
-            <StyledWalletAddressText>
+            <StyledTextWithBorder>
               <CustomText size="18px" color={"white"}>
                 {publicKey?.toBase58()}
               </CustomText>
-            </StyledWalletAddressText>
+            </StyledTextWithBorder>
           </StyledInnerChatContainer>
           <StyledInnerChatContainer>
             <Chat />
