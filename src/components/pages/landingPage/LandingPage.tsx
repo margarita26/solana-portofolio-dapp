@@ -62,6 +62,13 @@ const LandingPage = () => {
 
   const WelcomeText = () => (
     <div>
+      <div>
+        <StyledTextWithBorder>
+          <CustomText color="white" size="20px">
+            {"connect to devnet"}
+          </CustomText>
+        </StyledTextWithBorder>
+      </div>
       <div style={{ marginTop: "32px" }}>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <CustomText color="white" size="36px" animated>
