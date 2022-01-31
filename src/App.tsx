@@ -7,6 +7,9 @@ import colors from "./constants/colors";
 import { TransactionsProvider } from "./contexts/Transactions";
 import { UserSettingsProvider } from "./contexts/UserSettings";
 import Wallet from "./solana/Wallet";
+import MintPage from "./components/pages/mingPage/MintPage";
+import * as anchor from '@project-serum/anchor';
+
 
 const StyledContainer = styled.div`
   width: 100vw;
@@ -16,11 +19,26 @@ const StyledContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(45deg, ${colors.primary}, 80%, #58f3cd);
+  flex-direction: column;
+  background: linear-gradient(
+    45deg,
+    ${colors.primary},
+    80%,
+    ${colors.secondary}
+  );
 `;
 
 const theme = createTheme(
-  {},
+  {
+    palette: {
+      primary: {
+        main: colors.primary,
+      },
+      secondary: {
+        main: colors.secondary,
+      },
+    },
+  },
   {
     components: {
       MuiInputLabel: {
@@ -39,11 +57,39 @@ const theme = createTheme(
           },
         },
       },
+      MuiLinearProgress: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "rgba(250, 250, 250, 0.3)",
+            height: "14px",
+            borderRadius: "8px",
+          },
+          bar: {
+            background: `linear-gradient(45deg, ${colors.primary}, 80%, ${colors.secondary})`,
+            height: "14px",
+          },
+        },
+      },
     },
   }
 );
 
 function App() {
+  const getCandyMachineId = (): anchor.web3.PublicKey | undefined => {
+    try {
+      const candyMachineId = new anchor.web3.PublicKey(
+        process.env.REACT_APP_CANDY_MACHINE_ID!
+      );
+
+      return candyMachineId;
+    } catch (e) {
+      console.log("Failed to construct CandyMachineId", e);
+      return undefined;
+    }
+  };
+
+  const candyMachineId = getCandyMachineId();
+
   return (
     <ThemeProvider theme={theme}>
       <UserSettingsProvider>
@@ -52,6 +98,7 @@ function App() {
             <StyledContainer>
               <CustomAppBar />
               <LandingPage />
+              <MintPage candyMachineId={candyMachineId} />
             </StyledContainer>
           </TransactionsProvider>
         </Wallet>

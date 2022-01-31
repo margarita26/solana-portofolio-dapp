@@ -8,10 +8,14 @@ import { TransactionsContext } from "../../../contexts/Transactions";
 import { UserSettingsContext } from "../../../contexts/UserSettings";
 import { getDate } from "../../../utils/dateUtils";
 import CustomText from "../../shared/CustomText";
+import pageId from '../../../constants/page-ids';
 
 const StyledChatContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 `;
 
 interface StyledInnerChatContainerProps {
@@ -123,7 +127,7 @@ const LandingPage = () => {
   };
 
   return (
-    <>
+    <div id={pageId.chat}>
       {userPublicKey ? (
         <StyledChatContainer>
           <StyledInnerChatContainer>
@@ -163,7 +167,7 @@ const LandingPage = () => {
       ) : (
         <WelcomeText />
       )}
-    </>
+    </div>
   );
 };
 
